@@ -22,7 +22,10 @@ urlpatterns = [
     #一个子应用定义一个总路由,包含子路由中的路由函数。
     #规则：总路由不去校验，全部用子路由校验
     #namespace 命名空间
+    #users
     url(r'^',include('users.urls',namespace='users')),
+    #contents
     url(r'^',include('contents.urls',namespace='contents')),
-
+    #verifications
+    url(r'^',include('verifications.urls')),
 ]

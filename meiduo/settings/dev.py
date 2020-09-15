@@ -43,7 +43,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'users',        # 用户模块
     'contents',          # 首页广告模块
-
+    # 需要迁移和模板的app都是需要注册的，验证模块不需要迁移和模板，不用注册
+    'verifications',
 ]
 
 MIDDLEWARE = [
@@ -120,6 +121,14 @@ CACHES = {
     "session": {
             "BACKEND": "django_redis.cache.RedisCache",
             "LOCATION": "redis://127.0.0.1:6379/1",
+            "OPTIONS": {
+                "CLIENT_CLASS": "django_redis.client.DefaultClient",
+            }
+    },
+    # 存储验证码的reids库
+    "verify_code": {
+            "BACKEND": "django_redis.cache.RedisCache",
+            "LOCATION": "redis://127.0.0.1:6379/2",
             "OPTIONS": {
                 "CLIENT_CLASS": "django_redis.client.DefaultClient",
             }

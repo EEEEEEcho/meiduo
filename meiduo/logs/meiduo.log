@@ -774,3 +774,180 @@ INFO 2020-09-08 10:58:56,972 basehttp 124 "GET /register HTTP/1.1" 301 0
 INFO 2020-09-08 10:58:57,003 basehttp 124 "GET /register/ HTTP/1.1" 200 4926
 INFO 2020-09-08 10:58:57,024 basehttp 124 "GET /static/js/register.js HTTP/1.1" 200 3419
 INFO 2020-09-08 10:59:06,185 basehttp 124 "GET /usernames/ccccc/count/ HTTP/1.1" 200 41
+INFO 2020-09-15 09:02:40,167 basehttp 124 "GET / HTTP/1.1" 200 39137
+WARNING 2020-09-15 09:03:09,013 base 152 Not Found: /favicon.ico
+WARNING 2020-09-15 09:03:09,052 basehttp 124 "GET /favicon.ico HTTP/1.1" 404 2701
+WARNING 2020-09-15 09:03:23,504 base 152 Not Found: /register.html
+WARNING 2020-09-15 09:03:24,038 basehttp 124 "GET /register.html HTTP/1.1" 404 2707
+WARNING 2020-09-15 09:03:47,075 base 152 Not Found: /login.html
+WARNING 2020-09-15 09:03:47,096 basehttp 124 "GET /login.html HTTP/1.1" 404 2698
+INFO 2020-09-15 09:03:54,898 basehttp 124 "GET /register HTTP/1.1" 301 0
+INFO 2020-09-15 09:03:55,036 basehttp 124 "GET /register/ HTTP/1.1" 200 4926
+INFO 2020-09-15 09:03:55,302 basehttp 124 "GET /static/js/register.js HTTP/1.1" 200 4099
+INFO 2020-09-15 09:04:06,674 basehttp 124 "GET /usernames/qwersc/count/ HTTP/1.1" 200 41
+INFO 2020-09-15 09:04:18,671 basehttp 124 "GET /mobile/17070955625/count/ HTTP/1.1" 200 41
+INFO 2020-09-15 09:04:47,357 basehttp 124 "GET /mobile/17878478797/count/ HTTP/1.1" 200 41
+INFO 2020-09-15 09:05:52,431 basehttp 124 "GET /mobile/17878478792/count/ HTTP/1.1" 200 41
+INFO 2020-09-15 09:05:55,488 basehttp 124 "GET /usernames/qwersc/count/ HTTP/1.1" 200 41
+INFO 2020-09-15 09:05:55,536 basehttp 124 "GET /mobile/17878478792/count/ HTTP/1.1" 200 41
+ERROR 2020-09-15 09:05:56,685 exception 135 Internal Server Error: /register/
+Traceback (most recent call last):
+  File "/home/python/.virtualenvs/meiduo_mall/lib/python3.5/site-packages/django_redis/cache.py", line 27, in _decorator
+    return method(self, *args, **kwargs)
+  File "/home/python/.virtualenvs/meiduo_mall/lib/python3.5/site-packages/django_redis/cache.py", line 131, in has_key
+    return self.client.has_key(*args, **kwargs)
+  File "/home/python/.virtualenvs/meiduo_mall/lib/python3.5/site-packages/django_redis/client/default.py", line 511, in has_key
+    raise ConnectionInterrupted(connection=client) from e
+django_redis.exceptions.ConnectionInterrupted: Redis ConnectionError: Error 111 connecting to 127.0.0.1:6379. Connection refused.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/python/.virtualenvs/meiduo_mall/lib/python3.5/site-packages/django/core/handlers/exception.py", line 41, in inner
+    response = get_response(request)
+  File "/home/python/.virtualenvs/meiduo_mall/lib/python3.5/site-packages/django/core/handlers/base.py", line 187, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/home/python/.virtualenvs/meiduo_mall/lib/python3.5/site-packages/django/core/handlers/base.py", line 185, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/home/python/.virtualenvs/meiduo_mall/lib/python3.5/site-packages/django/views/generic/base.py", line 68, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/home/python/.virtualenvs/meiduo_mall/lib/python3.5/site-packages/django/views/generic/base.py", line 88, in dispatch
+    return handler(request, *args, **kwargs)
+  File "/home/python/Desktop/42/meiduo/meiduo/apps/users/views.py", line 59, in post
+    login(request,user)
+  File "/home/python/.virtualenvs/meiduo_mall/lib/python3.5/site-packages/django/contrib/auth/__init__.py", line 140, in login
+    request.session.cycle_key()
+  File "/home/python/.virtualenvs/meiduo_mall/lib/python3.5/site-packages/django/contrib/sessions/backends/base.py", line 311, in cycle_key
+    self.create()
+  File "/home/python/.virtualenvs/meiduo_mall/lib/python3.5/site-packages/django/contrib/sessions/backends/cache.py", line 44, in create
+    self._session_key = self._get_new_session_key()
+  File "/home/python/.virtualenvs/meiduo_mall/lib/python3.5/site-packages/django/contrib/sessions/backends/base.py", line 164, in _get_new_session_key
+    if not self.exists(session_key):
+  File "/home/python/.virtualenvs/meiduo_mall/lib/python3.5/site-packages/django/contrib/sessions/backends/cache.py", line 71, in exists
+    return session_key and (self.cache_key_prefix + session_key) in self._cache
+  File "/home/python/.virtualenvs/meiduo_mall/lib/python3.5/site-packages/django/core/cache/backends/base.py", line 203, in __contains__
+    return self.has_key(key)
+  File "/home/python/.virtualenvs/meiduo_mall/lib/python3.5/site-packages/django_redis/cache.py", line 34, in _decorator
+    raise e.__cause__
+  File "/home/python/.virtualenvs/meiduo_mall/lib/python3.5/site-packages/django_redis/client/default.py", line 509, in has_key
+    return client.exists(key) == 1
+  File "/home/python/.virtualenvs/meiduo_mall/lib/python3.5/site-packages/redis/client.py", line 1581, in exists
+    return self.execute_command('EXISTS', *names)
+  File "/home/python/.virtualenvs/meiduo_mall/lib/python3.5/site-packages/redis/client.py", line 898, in execute_command
+    conn = self.connection or pool.get_connection(command_name, **options)
+  File "/home/python/.virtualenvs/meiduo_mall/lib/python3.5/site-packages/redis/connection.py", line 1192, in get_connection
+    connection.connect()
+  File "/home/python/.virtualenvs/meiduo_mall/lib/python3.5/site-packages/redis/connection.py", line 563, in connect
+    raise ConnectionError(self._error_message(e))
+redis.exceptions.ConnectionError: Error 111 connecting to 127.0.0.1:6379. Connection refused.
+INFO 2020-09-15 09:54:58,203 basehttp 124 "GET /register/ HTTP/1.1" 200 4926
+INFO 2020-09-15 09:55:32,533 basehttp 124 "GET /static/images/logo.png HTTP/1.1" 304 0
+INFO 2020-09-15 09:55:32,547 basehttp 124 "GET /static/css/main.css HTTP/1.1" 304 0
+INFO 2020-09-15 09:55:32,586 basehttp 124 "GET /static/js/axios-0.18.0.min.js HTTP/1.1" 304 0
+INFO 2020-09-15 09:55:32,596 basehttp 124 "GET /static/js/vue-2.5.16.js HTTP/1.1" 304 0
+INFO 2020-09-15 09:55:32,672 basehttp 124 "GET /static/css/reset.css HTTP/1.1" 304 0
+INFO 2020-09-15 09:55:32,676 basehttp 124 "GET /static/js/register.js HTTP/1.1" 304 0
+INFO 2020-09-15 09:55:32,855 basehttp 124 "GET /static/images/pic_code.jpg HTTP/1.1" 304 0
+INFO 2020-09-15 09:55:54,994 basehttp 124 "GET /usernames/qwersc/count/ HTTP/1.1" 200 41
+INFO 2020-09-15 09:56:00,515 basehttp 124 "GET /usernames/qesxcda/count/ HTTP/1.1" 200 41
+INFO 2020-09-15 09:56:08,219 basehttp 124 "GET /mobile/17789745567/count/ HTTP/1.1" 200 41
+INFO 2020-09-15 09:56:11,911 basehttp 124 "GET /usernames/qesxcda/count/ HTTP/1.1" 200 41
+INFO 2020-09-15 09:56:11,984 basehttp 124 "GET /mobile/17789745567/count/ HTTP/1.1" 200 41
+INFO 2020-09-15 09:56:12,882 basehttp 124 "POST /register/ HTTP/1.1" 302 0
+INFO 2020-09-15 09:56:12,981 basehttp 124 "GET / HTTP/1.1" 200 39137
+INFO 2020-09-15 11:17:17,221 basehttp 124 "GET / HTTP/1.1" 200 39137
+WARNING 2020-09-15 11:17:27,333 base 152 Not Found: /favicon.ico
+WARNING 2020-09-15 11:17:27,372 basehttp 124 "GET /favicon.ico HTTP/1.1" 404 2885
+INFO 2020-09-15 11:17:45,491 basehttp 124 "GET /register HTTP/1.1" 301 0
+INFO 2020-09-15 11:17:45,590 basehttp 124 "GET /register/ HTTP/1.1" 200 5071
+INFO 2020-09-15 11:17:45,890 basehttp 124 "GET /static/js/register.js HTTP/1.1" 200 4519
+INFO 2020-09-15 11:17:59,338 basehttp 124 "GET /register/ HTTP/1.1" 200 5071
+INFO 2020-09-15 11:17:59,474 basehttp 124 "GET /static/css/reset.css HTTP/1.1" 304 0
+INFO 2020-09-15 11:17:59,486 basehttp 124 "GET /static/css/main.css HTTP/1.1" 304 0
+INFO 2020-09-15 11:17:59,493 basehttp 124 "GET /static/js/vue-2.5.16.js HTTP/1.1" 304 0
+INFO 2020-09-15 11:17:59,504 basehttp 124 "GET /static/js/axios-0.18.0.min.js HTTP/1.1" 304 0
+INFO 2020-09-15 11:17:59,516 basehttp 124 "GET /static/images/logo.png HTTP/1.1" 304 0
+INFO 2020-09-15 11:17:59,560 basehttp 124 "GET /static/js/common.js HTTP/1.1" 304 0
+INFO 2020-09-15 11:17:59,592 basehttp 124 "GET /static/js/register.js HTTP/1.1" 304 0
+WARNING 2020-09-15 11:18:13,507 basehttp 124 "GET /static/js/axios.min.map HTTP/1.1" 404 1661
+INFO 2020-09-15 11:20:34,932 basehttp 124 "GET /register/ HTTP/1.1" 200 5071
+INFO 2020-09-15 11:20:35,125 basehttp 124 "GET /static/css/main.css HTTP/1.1" 304 0
+INFO 2020-09-15 11:20:35,145 basehttp 124 "GET /static/css/reset.css HTTP/1.1" 304 0
+INFO 2020-09-15 11:20:35,150 basehttp 124 "GET /static/js/vue-2.5.16.js HTTP/1.1" 304 0
+INFO 2020-09-15 11:20:36,379 basehttp 124 "GET /static/js/axios-0.18.0.min.js HTTP/1.1" 304 0
+INFO 2020-09-15 11:20:36,449 basehttp 124 "GET /static/images/logo.png HTTP/1.1" 304 0
+INFO 2020-09-15 11:20:36,479 basehttp 124 "GET /static/js/common.js HTTP/1.1" 304 0
+INFO 2020-09-15 11:20:36,494 basehttp 124 "GET /static/js/register.js HTTP/1.1" 304 0
+WARNING 2020-09-15 11:20:36,676 basehttp 124 "GET /static/js/axios.min.map HTTP/1.1" 404 1661
+INFO 2020-09-15 11:23:58,067 basehttp 124 "GET /register/ HTTP/1.1" 200 5071
+INFO 2020-09-15 11:23:58,309 basehttp 124 "GET /static/css/reset.css HTTP/1.1" 304 0
+INFO 2020-09-15 11:23:58,317 basehttp 124 "GET /static/js/axios-0.18.0.min.js HTTP/1.1" 304 0
+INFO 2020-09-15 11:23:58,323 basehttp 124 "GET /static/css/main.css HTTP/1.1" 304 0
+INFO 2020-09-15 11:23:58,328 basehttp 124 "GET /static/js/vue-2.5.16.js HTTP/1.1" 304 0
+INFO 2020-09-15 11:23:58,378 basehttp 124 "GET /static/js/common.js HTTP/1.1" 304 0
+INFO 2020-09-15 11:23:58,378 basehttp 124 "GET /static/images/logo.png HTTP/1.1" 304 0
+INFO 2020-09-15 11:23:58,389 basehttp 124 "GET /static/js/register.js HTTP/1.1" 200 4510
+WARNING 2020-09-15 11:23:59,245 basehttp 124 "GET /static/js/axios.min.map HTTP/1.1" 404 1661
+ERROR 2020-09-15 11:24:00,522 exception 135 Internal Server Error: /image_codes/2dcd02a6-3e5b-4c75-89d8-c4d9c640739f/
+Traceback (most recent call last):
+  File "/home/python/.virtualenvs/meiduo_mall/lib/python3.5/site-packages/django/core/handlers/exception.py", line 41, in inner
+    response = get_response(request)
+  File "/home/python/.virtualenvs/meiduo_mall/lib/python3.5/site-packages/django/core/handlers/base.py", line 187, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/home/python/.virtualenvs/meiduo_mall/lib/python3.5/site-packages/django/core/handlers/base.py", line 185, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/home/python/.virtualenvs/meiduo_mall/lib/python3.5/site-packages/django/views/generic/base.py", line 68, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/home/python/.virtualenvs/meiduo_mall/lib/python3.5/site-packages/django/views/generic/base.py", line 88, in dispatch
+    return handler(request, *args, **kwargs)
+  File "/home/python/Desktop/42/meiduo/meiduo/apps/verifications/views.py", line 21, in get
+    redis_conn = get_redis_connection('verify_code"')    # 找到dev中配置的redis库
+  File "/home/python/.virtualenvs/meiduo_mall/lib/python3.5/site-packages/django_redis/__init__.py", line 12, in get_redis_connection
+    cache = caches[alias]
+  File "/home/python/.virtualenvs/meiduo_mall/lib/python3.5/site-packages/django/core/cache/__init__.py", line 77, in __getitem__
+    "Could not find config for '%s' in settings.CACHES" % alias
+django.core.cache.backends.base.InvalidCacheBackendError: Could not find config for 'verify_code"' in settings.CACHES
+ERROR 2020-09-15 11:24:01,757 basehttp 124 "GET /image_codes/2dcd02a6-3e5b-4c75-89d8-c4d9c640739f/ HTTP/1.1" 500 96655
+INFO 2020-09-15 11:25:48,568 basehttp 124 "GET /register/ HTTP/1.1" 200 5071
+INFO 2020-09-15 11:25:48,743 basehttp 124 "GET /static/css/reset.css HTTP/1.1" 304 0
+INFO 2020-09-15 11:25:48,883 basehttp 124 "GET /static/css/main.css HTTP/1.1" 304 0
+INFO 2020-09-15 11:25:48,892 basehttp 124 "GET /static/js/axios-0.18.0.min.js HTTP/1.1" 304 0
+INFO 2020-09-15 11:25:48,896 basehttp 124 "GET /static/js/vue-2.5.16.js HTTP/1.1" 304 0
+INFO 2020-09-15 11:25:48,897 basehttp 124 "GET /static/images/logo.png HTTP/1.1" 304 0
+INFO 2020-09-15 11:25:48,924 basehttp 124 "GET /static/js/common.js HTTP/1.1" 304 0
+INFO 2020-09-15 11:25:48,924 basehttp 124 "GET /static/js/register.js HTTP/1.1" 304 0
+WARNING 2020-09-15 11:25:49,259 basehttp 124 "GET /static/js/axios.min.map HTTP/1.1" 404 1661
+INFO 2020-09-15 11:25:49,808 basehttp 124 "GET /image_codes/3f105afc-e454-459d-9b87-3b0103745283/ HTTP/1.1" 200 2925
+INFO 2020-09-15 11:25:52,922 basehttp 124 "GET /register/ HTTP/1.1" 200 5071
+INFO 2020-09-15 11:25:53,048 basehttp 124 "GET /static/css/reset.css HTTP/1.1" 304 0
+INFO 2020-09-15 11:25:53,056 basehttp 124 "GET /static/css/main.css HTTP/1.1" 304 0
+INFO 2020-09-15 11:25:53,058 basehttp 124 "GET /static/js/vue-2.5.16.js HTTP/1.1" 304 0
+INFO 2020-09-15 11:25:53,068 basehttp 124 "GET /static/js/axios-0.18.0.min.js HTTP/1.1" 304 0
+INFO 2020-09-15 11:25:53,079 basehttp 124 "GET /static/images/logo.png HTTP/1.1" 304 0
+INFO 2020-09-15 11:25:53,081 basehttp 124 "GET /static/js/register.js HTTP/1.1" 304 0
+INFO 2020-09-15 11:25:53,087 basehttp 124 "GET /static/js/common.js HTTP/1.1" 304 0
+INFO 2020-09-15 11:25:54,621 basehttp 124 "GET /image_codes/1a47e6ea-582c-4165-a83e-c79f3780110c/ HTTP/1.1" 200 3113
+WARNING 2020-09-15 11:25:54,798 basehttp 124 "GET /static/js/axios.min.map HTTP/1.1" 404 1661
+INFO 2020-09-15 11:25:56,707 basehttp 124 "GET /register/ HTTP/1.1" 200 5071
+INFO 2020-09-15 11:25:56,845 basehttp 124 "GET /static/css/main.css HTTP/1.1" 304 0
+INFO 2020-09-15 11:25:56,855 basehttp 124 "GET /static/css/reset.css HTTP/1.1" 304 0
+INFO 2020-09-15 11:25:56,889 basehttp 124 "GET /static/js/axios-0.18.0.min.js HTTP/1.1" 304 0
+INFO 2020-09-15 11:25:56,879 basehttp 124 "GET /static/js/vue-2.5.16.js HTTP/1.1" 304 0
+INFO 2020-09-15 11:25:56,931 basehttp 124 "GET /static/images/logo.png HTTP/1.1" 304 0
+INFO 2020-09-15 11:25:56,960 basehttp 124 "GET /static/js/register.js HTTP/1.1" 304 0
+INFO 2020-09-15 11:25:56,960 basehttp 124 "GET /static/js/common.js HTTP/1.1" 304 0
+WARNING 2020-09-15 11:25:57,514 basehttp 124 "GET /static/js/axios.min.map HTTP/1.1" 404 1661
+INFO 2020-09-15 11:25:58,429 basehttp 124 "GET /image_codes/3f4bb90d-7de2-4c8c-8fa6-ee623ead5cd4/ HTTP/1.1" 200 3412
+INFO 2020-09-15 11:55:47,926 basehttp 124 "GET /register/ HTTP/1.1" 200 5100
+INFO 2020-09-15 11:55:48,632 basehttp 124 "GET /static/css/reset.css HTTP/1.1" 304 0
+INFO 2020-09-15 11:55:48,673 basehttp 124 "GET /static/js/axios-0.18.0.min.js HTTP/1.1" 304 0
+INFO 2020-09-15 11:55:48,687 basehttp 124 "GET /static/css/main.css HTTP/1.1" 304 0
+INFO 2020-09-15 11:55:48,717 basehttp 124 "GET /static/images/logo.png HTTP/1.1" 304 0
+INFO 2020-09-15 11:55:48,728 basehttp 124 "GET /static/js/common.js HTTP/1.1" 304 0
+INFO 2020-09-15 11:55:48,752 basehttp 124 "GET /static/js/vue-2.5.16.js HTTP/1.1" 304 0
+INFO 2020-09-15 11:55:48,760 basehttp 124 "GET /static/js/register.js HTTP/1.1" 304 0
+WARNING 2020-09-15 11:55:49,792 basehttp 124 "GET /static/js/axios.min.map HTTP/1.1" 404 1661
+INFO 2020-09-15 11:55:51,363 basehttp 124 "GET /image_codes/d0d92dc0-e168-4644-961a-a8b6714d2de2/ HTTP/1.1" 200 3400
+INFO 2020-09-15 11:55:52,669 basehttp 124 "GET /image_codes/ea6020a3-ccdf-43fb-9453-476215658de1/ HTTP/1.1" 200 3157
+INFO 2020-09-15 11:55:53,415 basehttp 124 "GET /image_codes/363803f4-ed4b-4696-aca5-33072ea566b4/ HTTP/1.1" 200 3734
+INFO 2020-09-15 11:55:54,041 basehttp 124 "GET /image_codes/495ad22e-1d56-4e16-8db5-240045db7583/ HTTP/1.1" 200 3502

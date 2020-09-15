@@ -79,3 +79,14 @@ class UsernameCountView(View):
             'errmsg':'OK',
             'count':count
         })
+
+class MobileCountView(View):
+    """判断手机号是否重复"""
+    # 这里的mobile是接受url中传过来的mobile
+    def get(self,request,mobile):
+        count = User.objects.filter(mobile=mobile).count()
+        return http.JsonResponse({
+            'code':RETCODE.OK,
+            'errmsg':'OK',
+            'count':count
+        })

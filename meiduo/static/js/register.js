@@ -11,6 +11,8 @@ var vm = new Vue({
         password: '',
         password2: '',
         mobile: '',
+        image_code_url:'',
+        uuid:'',
         //v-show
         error_name: false,
         error_password: false,
@@ -21,7 +23,17 @@ var vm = new Vue({
         error_name_message: '',
         error_mobile_message: ''
     },
+    //页面一加载完，vue自动调用mounted函数
+    mounted(){
+        //生成图形验证码
+        this.generate_image_code();
+    },
     methods: {
+        // 生成图形验证码的方法：封装思想，代码复用
+        generate_image_code(){
+            this.uuid = generateUUID();
+            this.image_code_url = '/image_codes/'+this.uuid + '/';
+        },
         //校验用户名
         check_username(){
             let re = /^[a-zA-Z0-9_-]{5,20}$/;
@@ -80,6 +92,24 @@ var vm = new Vue({
             } else {
                 this.error_mobile_message = '您输入的手机号格式不正确';
                 this.error_mobile = true;
+            }
+
+            //校验手机号是否重复
+            if(this.error_mobile == false){
+                let url = '/mobile/' + this.mobile + '/count/'
+                axios.get(url,{
+                    responseType:'json',
+                }).then(response => {
+                    if(response.data.count == 1){
+                        this.error_mobile_message = '此电话号码已存在';
+                        this.error_mobile = true;
+                    }
+                    else{
+                        this.error_mobile = false;
+                    }
+                }).catch(error => {
+                    console.log(error.response);
+                })
             }
         },
         //校验协议勾选

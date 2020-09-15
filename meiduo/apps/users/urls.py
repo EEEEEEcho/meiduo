@@ -6,4 +6,5 @@ urlpatterns = [
     url(r'^register/$',views.RegisterView.as_view(),name='register'),
     # 获取url参数，通过正则匹配到username，然后传递给P<username>
     url(r'^usernames/(?P<username>[a-zA-Z0-9_-]{5,20})/count/$',views.UsernameCountView.as_view()),
+    url(r'^mobile/(?P<mobile>1[3-9]\d{9})/count/$',views.MobileCountView.as_view()),
 ]

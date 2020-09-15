@@ -49,7 +49,8 @@
                         <li>
                             <label>图形验证码:</label>
                             <input type="text" name="image_code" id="pic_code" class="msg_input">
-                            <img src="../static/images/pic_code.jpg" alt="图形验证码" class="pic_code">
+                            <!-- 在属性前加一个: 表示将变量绑定到属性 -->
+                            <img :src="image_code_url" alt="图形验证码" class="pic_code" @click="generate_image_code">
                             <span class="error_tip">请填写图形验证码</span>
                         </li>
                         <li>
@@ -88,6 +89,7 @@
         <p>电话：010-****888 京ICP备*******8号</p>
     </div>
 </div>
+<script type="text/javascript" src="{{ static('js/common.js') }}"></script>
 <script type="text/javascript" src="{{ static('js/register.js') }}"></script>
 </body>
 </html>

@@ -15,7 +15,8 @@ var vm = new Vue({
         uuid: '',
         image_code: '',
         sms_code_tip: '获取短信验证码',
-        send_flg : false,   //是否已经发送短信验证码
+        send_flg : false,   //是否已经发送短信验证码,
+        sms_code:'',
         //v-show
         error_name: false,
         error_password: false,
@@ -23,10 +24,12 @@ var vm = new Vue({
         error_mobile: false,
         error_allow: false,
         error_image_code: false,
+        error_sms_code:false,
         //error_message
         error_name_message: '',
         error_mobile_message: '',
-        error_image_code_message: ''
+        error_image_code_message: '',
+        error_sms_code_message:'',
     },
     //页面一加载完，vue自动调用mounted函数
     mounted(){
@@ -126,6 +129,15 @@ var vm = new Vue({
                 this.error_image_code = false;
             }
         },
+        check_sms_code(){
+          if(this.sms_code.length != 6){
+              this.error_sms_code_message = '请填写短信验证码';
+              this.error_sms_code = true;
+          }
+          else{
+              this.error_sms_code = false;
+          }
+        },
         //校验协议勾选
         check_allow(){
             if (!this.allow) {
@@ -138,13 +150,14 @@ var vm = new Vue({
         send_sms_code(){
             //避免用户频繁点击获取验证码的标签
             if(this.send_flg == true){
-                return
+                return;
             }
             this.send_flg = false;
             //校验mobile和image_code
             this.check_mobile();
             this.check_image_code();
             if(this.error_mobile == true || this.error_image_code == true){
+                this.send_flg = false;
                 return;
             }
 
@@ -165,6 +178,7 @@ var vm = new Vue({
                                 this.sms_code_tip = '获取短信验证码';
                                 //重新生成图形验证码
                                 this.generate_image_code();
+                                this.send_flg = false;
                             }
                             else{
                                 num -= 1;
@@ -178,10 +192,17 @@ var vm = new Vue({
                             this.error_image_code_message = response.data.errmsg;
                             this.error_image_code = true;
                         }
+                        else{
+                            //code = 4002 短信验证码错误
+                            this.error_sms_code_message = response.data.errmsg;
+                            this.error_sms_code = true;
+                        }
+                        this.send_flg = false;
                     }
                 })
                 .catch(error => {
                     console.log(error.response)
+                    this.send_flg = false;
                 })
         },
         //提交事件
@@ -191,9 +212,9 @@ var vm = new Vue({
             this.check_password2();
             this.check_mobile();
             this.check_allow();
-
+            this.check_sms_code();
             if (this.error_name == true || this.error_password == true || this.error_password2 == true
-                || this.error_mobile == true || this.error_allow == true) {
+                || this.error_mobile == true || this.error_allow == true || this.error_sms_code == true) {
                 // 禁用表单的提交
                 window.event.returnValue = false;
             }

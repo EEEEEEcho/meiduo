@@ -3,11 +3,15 @@ from django.views import View
 from verifications.libs.captcha.captcha import captcha
 from django_redis import get_redis_connection
 from django import http
+import random,logging
+
 from . import constants
 from meiduo.utils.response_code import RETCODE
-import random
 from verifications.libs.yuntongxun.ccp_sms import CPP
 # Create your views here.
+
+# 创建日志输出器，来记录短信日志
+logger = logging.getLogger('django')
 
 class SMSCodeView(View):
     """短信验证码"""
@@ -24,9 +28,16 @@ class SMSCodeView(View):
         # 校验参数
         if not all([img_code_client,uuid]):
             return http.HttpResponseForbidden('缺少必要参数')
+        # 创建链接redis的对象
+        redis_conn = get_redis_connection('verify_code')
+
+        # 判断用户是否频繁发送短信验证码
+        send_flg = redis_conn.get('send_flg_%s' % mobile)
+        if send_flg:    # 已经发送过了
+            return http.JsonResponse({'code':RETCODE.THROTTLINGERR,'errmsg':'发送短信过于频繁'})
 
         # 提取图形验证码
-        redis_conn = get_redis_connection('verify_code')
+
         img_code_server = redis_conn.get("img_%s" % uuid)   # 这是一个bytes类型
         if img_code_server is None:
             return http.JsonResponse({'code':RETCODE.IMAGECODEERR,'errmsg':'图形验证码已经失效'})
@@ -39,8 +50,23 @@ class SMSCodeView(View):
 
         # 生产短信验证码 %06d代表，如果不够6位，前面补0
         sms_code = '%06d' % random.randint(0,999999)
+        # 手动输出日志，记录短信验证码
+        logger.info(sms_code)
+        # # 保存短信验证码
+        # redis_conn.setex("sms_%s" % mobile,constants.SMS_CODE_REDIS_EXPIRES,sms_code)
+        # # 保存发送短信验证码的标记
+        # redis_conn.setex('send_flg_%s' % mobile,constants.SEND_SMS_CODE_INTERVAL,1)
+
+        # 创建redis管道
+        pl = redis_conn.pipeline()
+        # 将命令添加到队列中
         # 保存短信验证码
-        redis_conn.setex("sms_%s" % mobile,constants.SMS_CODE_REDIS_EXPIRES,sms_code)
+        pl.setex("sms_%s" % mobile, constants.SMS_CODE_REDIS_EXPIRES, sms_code)
+        # 保存发送短信验证码的标记
+        pl.setex('send_flg_%s' % mobile, constants.SEND_SMS_CODE_INTERVAL, 1)
+        # 执行
+        pl.execute()
+
         # 发送短信验证码
         CPP().send_message_sms(mobile,[sms_code,constants.SMS_CODE_REDIS_EXPIRES // 60],constants.SEND_SMS_TEMPLATE_ID)
         return http.JsonResponse({'code':RETCODE.OK,'errmsg':'发送短信成功'})

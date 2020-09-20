@@ -48,7 +48,7 @@ class CPP(object):
         # 判断单例是否存在，_instance属性中存储的就是单例
         if not hasattr(cls,"_instance"):
             # super(CPP, cls)首先找到CPP的父类object，然后把cls转换为父类object
-            cls._instance= super(CPP, cls).__new__(cls, *args, **kwargs)
+            cls._instance = super(CPP, cls).__new__(cls, *args, **kwargs)
             # 绑定rest与单例
             cls._instance.rest = REST(_serverIP, _serverPort, _softVersion)
             cls._instance.rest.setAccount(_accountSid, _accountToken)
